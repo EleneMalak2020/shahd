@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 // Route::prefix('/dashboard')->middleware(['auth', 'role:admin|superAdmin'])->namespace('Dashboard')->as('dashboard.')->group(function(){
 
-Route::prefix('/dashboard')->middleware(['auth'])->namespace('Dashboard')->as('dashboard.')->group(function(){
+Route::prefix('/dashboard')->middleware(['auth:admin'])->namespace('Dashboard')->as('dashboard.')->group(function(){
 
     Route::get('/', 'DHomeController@index')->name('home');
 
@@ -35,9 +35,15 @@ Route::prefix('/dashboard')->middleware(['auth'])->namespace('Dashboard')->as('d
     Route::post('/products/update', 'DProductController@update')->name('products.update');
     Route::delete('/products/delete/{id}', 'DProductController@delete')->name('products.delete');
 
-
 });
 
 Auth::routes();
+
+Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+
+Route::post('/login/admin', 'Auth\LoginController@adminLogin');
+Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
+
 
 // Route::get('/home', 'HomeController@index')->name('home');
