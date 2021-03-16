@@ -57,9 +57,7 @@
                                     category_name_ar="{{ $category->name_ar }}"
                                     category_id="{{ $category->id }}"
                                     style='width:5em;height:35px' class="editBtn btn btn-sm btn-primary mr-1 edit-category" data-toggle="modal" data-target="#editCategoryModal">تعديل</button>
-
                                 <button style='width:4.25em;height:35px' type="submit" category_id="{{ $category->id }}" class="delete_btn btn btn-sm ml-1 btn-danger">مسح</button>
-                                {{-- <a class="btn btn-success" style='width:5.75em;height:35px' href="{{ route('dashboard.post.create', $category->id) }}">Add Post</a> --}}
                             </div>
                         </form>
                     </div>
@@ -115,8 +113,8 @@
 
 
                     success: function (response) {
-                    var id      = response.data.id;
-                    var name_en    = response.data.name_en;
+                    var id          = response.data.id;
+                    var name_en     = response.data.name_en;
                     var name_ar     = response.data.name_ar;
 
 

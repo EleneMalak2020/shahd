@@ -29,6 +29,13 @@ Route::prefix('/dashboard')->middleware(['auth'])->namespace('Dashboard')->as('d
     Route::post('/categories/update', 'DCategoryController@update')->name('categories.update');
     Route::delete('/categories/delete', 'DCategoryController@delete')->name('categories.delete');
 
+    //product
+    Route::get('/products', 'DProductController@index')->name('products.index');
+    Route::post('/products', 'DProductController@store')->name('products.store');
+    Route::post('/products/update', 'DProductController@update')->name('products.update');
+    Route::delete('/products/delete/{id}', 'DProductController@delete')->name('products.delete');
+
+
 });
 
 Auth::routes();
