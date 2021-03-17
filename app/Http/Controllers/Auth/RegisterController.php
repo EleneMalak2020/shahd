@@ -57,6 +57,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone'     => ['required', 'min:11'],
+            'address'   => [ 'max:255']
         ]);
     }
 
@@ -71,6 +73,8 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
+            'address'   => $data['address'],
             'password' => Hash::make($data['password']),
         ]);
     }
@@ -86,9 +90,11 @@ class RegisterController extends Controller
         $admin = Admin::create([
             'name' => $request['name'],
             'email' => $request['email'],
+            'phone' => $request['phone'],
             'password' => Hash::make($request['password']),
         ]);
-        return redirect()->route('dashboard.home');
+
+        return redirect()->intended('login/admin');
     }
 
 }

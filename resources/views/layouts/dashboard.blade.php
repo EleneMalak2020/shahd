@@ -81,10 +81,10 @@
             </a>
           </li>
           <li class="nav-item">
-            {{-- <a href="{{ route('dashboard.teams.index') }}" class="nav-link"> --}}
+            <a href="{{ route('dashboard.users.index') }}" class="nav-link">
               <i class="nav-icon fa fa-users"></i>
               <p>
-                Teams
+                المستخدمين
               </p>
             </a>
           </li>
@@ -121,13 +121,27 @@
             </a>
           </li>
           <li class="nav-item">
-            {{-- <a href="{{ route('dashboard.admins.index') }}" class="nav-link"> --}}
+            <a href="{{ route('dashboard.admins.index') }}" class="nav-link">
               <i class="nav-icon fa fa-user-plus"></i>
               <p>
-                Admins
+                الأدمن
               </p>
             </a>
           </li>
+
+          <li class="nav-header">العمليات</li>
+          <li class="nav-item">
+              <a class="nav-link" href="{{ route('logout') }}"
+                  onclick="event.preventDefault();
+                              document.getElementById('logout-form').submit();">
+                  <i class="nav-icon far fa-circle text-danger"></i>
+                  {{ __('تسجيل خروج') }}
+              </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                  @csrf
+              </form>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

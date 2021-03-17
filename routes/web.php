@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 // Route::prefix('/dashboard')->middleware(['auth', 'role:admin|superAdmin'])->namespace('Dashboard')->as('dashboard.')->group(function(){
 
-Route::prefix('/dashboard')->middleware(['auth:admin'])->namespace('Dashboard')->as('dashboard.')->group(function(){
+Route::prefix('/dashboard')->middleware(['auth:admin', 'role:admin|superAdmin'])->namespace('Dashboard')->as('dashboard.')->group(function(){
 
     Route::get('/', 'DHomeController@index')->name('home');
 
@@ -35,6 +35,14 @@ Route::prefix('/dashboard')->middleware(['auth:admin'])->namespace('Dashboard')-
     Route::post('/products/update', 'DProductController@update')->name('products.update');
     Route::delete('/products/delete/{id}', 'DProductController@delete')->name('products.delete');
 
+    //customers
+    Route::get('/users', 'DUserController@index')->name('users.index');
+
+    //admins
+    Route::get('admins', 'DAdminController@index')->name('admins.index');
+    Route::put('admin/accept/{id}', 'DAdminController@makeAdmin')->name('admins.makeAdmin');
+
+
 });
 
 Auth::routes();
@@ -46,4 +54,4 @@ Route::post('/login/admin', 'Auth\LoginController@adminLogin');
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
 
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');

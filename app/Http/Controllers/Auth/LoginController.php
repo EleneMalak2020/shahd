@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Admin;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -56,7 +57,13 @@ class LoginController extends Controller
 
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
-            return redirect()->route('dashboard.home');
+            $admin = Auth::guard('admin')->user();
+            if($admin->hasRole(['admin', 'superAdmin'])){
+                return redirect()->route('dashboard.home');
+            }else{
+                toastr()->success('في انتظار الموافقة');
+                return redirect()->route('home');
+            }
         }
         return back()->withInput($request->only('email', 'remember'));
     }
