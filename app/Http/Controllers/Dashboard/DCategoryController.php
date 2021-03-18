@@ -21,6 +21,7 @@ class DCategoryController extends Controller
         $category = new Category();
         $category->name_en  = $request->name_en;
         $category->name_ar  = $request->name_ar;
+        
         $category->save();
 
         return response()->json([

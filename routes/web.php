@@ -54,4 +54,19 @@ Route::post('/login/admin', 'Auth\LoginController@adminLogin');
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
+
+Route::namespace('Front')->group(function(){
+
+    Route::get('/', 'HomeController@index')->name('home');
+
+    Route::get('/products', 'ProductController@index')->name('products.index');
+    Route::get('/products/{product_id}', 'ProductController@show')->name('products.show');
+
+    Route::middleware('auth')->group(function(){
+        Route::get('/cart', 'CartController@index')->name('cart.index');
+        Route::get('/cart/add', 'CartController@addToCart')->name('addToCart');
+
+    });
+});
+
