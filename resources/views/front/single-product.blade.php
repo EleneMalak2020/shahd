@@ -10,7 +10,7 @@
                 <a href="{{ asset('storage/products/'.$product->image) }}" class="image-popup prod-img-bg"><img src="{{ asset('storage/products/'.$product->image) }}" class="img-fluid" alt="Colorlib Template"></a>
             </div>
             <div class="col-lg-6 product-details pl-md-5 ftco-animate">
-                    <h3>{{ $product->name_en }}</h3>
+                    <h3>{{ $product->name }}</h3>
                     <div class="rating d-flex">
                             {{-- Rating system
                                 <p class="text-left mr-4">
@@ -225,16 +225,19 @@
 @endsection
 
 @section('script')
-<script>
+{{-- <script>
     $(document).on('click', '.submitToCart', function(e){
         e.preventDefault();
 
         var productID = $(this).attr('productID');
-        console.log(productID);
+        var quantity = $('#quantity').val();
         $.ajax({
             type: "get",
             url: "{{ route('addToCart') }}",
-            data: {'id' : productID },
+            data: {
+                'id' : productID,
+                'quantity' : quantity
+                },
 
 
             success: function (response) {
@@ -244,6 +247,43 @@
             }
         });
     });
+</script> --}}
 
+<script>
+    $(document).ready(function(){
+
+    var quantitiy=0;
+       $('.quantity-right-plus').click(function(e){
+
+            // Stop acting like a button
+            e.preventDefault();
+            // Get the field name
+            var quantity = parseInt($('#quantity').val());
+
+            // If is not undefined
+
+                $('#quantity').val(quantity + 1);
+
+
+                // Increment
+
+        });
+
+         $('.quantity-left-minus').click(function(e){
+            // Stop acting like a button
+            e.preventDefault();
+            // Get the field name
+            var quantity = parseInt($('#quantity').val());
+
+            // If is not undefined
+
+                // Increment
+                if(quantity>0){
+                $('#quantity').val(quantity - 1);
+                }
+        });
+
+    });
 </script>
+
 @endsection

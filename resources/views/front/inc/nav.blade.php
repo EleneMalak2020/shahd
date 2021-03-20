@@ -26,35 +26,27 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-    <a class="navbar-brand" href="index.html">Liquor <span>store</span></a>
+    <a class="navbar-brand" href="{{ route('home') }}">Liquor <span>store</span></a>
     <div class="order-lg-last btn-group">
     <a href="#" class="btn-cart dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="flaticon-shopping-bag"></span>
-        <div class="d-flex justify-content-center align-items-center"><small>3</small></div>
+        <div class="d-flex justify-content-center align-items-center"><small class="itemsCount">{{  \Cart::session(Auth::id())->getTotalQuantity() }}</small></div>
     </a>
     <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-item d-flex align-items-start" href="#">
-                    <div class="img" style="background-image: url(images/prod-1.jpg);"></div>
-                    <div class="text pl-3">
-                        <h4>Bacardi 151</h4>
-                        <p class="mb-0"><a href="#" class="price">$25.99</a><span class="quantity ml-3">Quantity: 01</span></p>
+
+                <?php $products = \Cart::session(Auth::id())->getContent() ?>
+                <div id="products-nav">
+                    @foreach ($products as $product)
+                    <div class="dropdown-item d-flex align-items-start" href="#">
+                        <div class="img" style="background-image: url({{ $product->attributes->image }});"></div>
+                        <div class="text pl-3">
+                            <h4>{{ $product->name }}</h4>
+                            <p class="mb-0"><a href="#" class="price">${{ $product->price }}</a><span class="quantity ml-3">Quantity: {{ $product->quantity }}</span></p>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
-                <div class="dropdown-item d-flex align-items-start" href="#">
-                    <div class="img" style="background-image: url(images/prod-2.jpg);"></div>
-                    <div class="text pl-3">
-                        <h4>Jim Beam Kentucky Straight</h4>
-                        <p class="mb-0"><a href="#" class="price">$30.89</a><span class="quantity ml-3">Quantity: 02</span></p>
-                    </div>
-                </div>
-                <div class="dropdown-item d-flex align-items-start" href="#">
-                    <div class="img" style="background-image: url(images/prod-3.jpg);"></div>
-                    <div class="text pl-3">
-                        <h4>Citadelle</h4>
-                        <p class="mb-0"><a href="#" class="price">$22.50</a><span class="quantity ml-3">Quantity: 01</span></p>
-                    </div>
-                </div>
-                <a class="dropdown-item text-center btn-link d-block w-100" href="cart.html">
+                <a class="dropdown-item text-center btn-link d-block w-100" href="{{ route('cart.index') }}">
                     View All
                     <span class="ion-ios-arrow-round-forward"></span>
                 </a>
@@ -84,3 +76,4 @@
     </div>
     </div>
 </nav>
+

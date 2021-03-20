@@ -66,6 +66,9 @@ Route::namespace('Front')->group(function(){
     Route::middleware('auth')->group(function(){
         Route::get('/cart', 'CartController@index')->name('cart.index');
         Route::get('/cart/add', 'CartController@addToCart')->name('addToCart');
+        Route::delete('/cart/delete', 'CartController@deleteItemFromCart')->name('deleteItemFromCart');
+        Route::get('/cart/plus', 'CartController@plus')->name('quantityPlus');
+        Route::get('/cart/minus', 'CartController@minus')->name('quantityMinus');
 
     });
 });

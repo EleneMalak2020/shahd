@@ -53,5 +53,167 @@
     <!--toaster js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+    <script>
+        $(document).on('click', '.submitToCart', function(e){
+            e.preventDefault();
+
+            var productID = $(this).attr('productID');
+            var quantity = $('#quantity').val();
+            $.ajax({
+                type: "get",
+                url: "{{ route('addToCart') }}",
+                data: {
+                    'id' : productID,
+                    'quantity' : quantity
+                    },
+
+
+                success: function (response) {
+                    $(".itemsCount").html(response.totalQuantity);
+
+                    $('#products-nav').html("");
+                    $.each(response.products, function (index, value) {
+
+                        $("#products-nav").append(`
+                            <div class="dropdown-item d-flex align-items-start" href="#">
+                                <div class="img" style="background-image: url(${value.attributes.image});"></div>
+                                <div class="text pl-3">
+                                    <h4>${value.name}</h4>
+                                    <p class="mb-0"><a href="#" class="price">$${value.price}</a><span class="quantity ml-3">Quantity: ${value.quantity}</span></p>
+                                </div>
+                            </div>`
+                        );
+                    });
+
+                    toastr.success(response.msg);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+
+        var quantitiy=0;
+        $('.quantity-right-plus').click(function(e){
+                e.preventDefault();
+                var product_id = $(this).attr('product_id');
+                var quantity = parseInt($('#quantity'+product_id).val());
+
+                $('#quantity'+product_id).val(quantity + 1);
+
+                $.ajax({
+                    type: "get",
+                    url: "{{ route('quantityPlus') }}",
+                    data: {'id' : product_id},
+
+                    success: function (response) {
+                        if(response.status == true){
+                            $("#total").text(response.total);
+                            $(".priceSum"+response.id).text('$'+response.priceSum);
+                            $(".itemsCount").html(response.totalQuantity);
+
+                            $('#products-nav').html("");
+                            $.each(response.products, function (index, value) {
+
+                                $("#products-nav").append(`
+                                    <div class="dropdown-item d-flex align-items-start" href="#">
+                                        <div class="img" style="background-image: url(${value.attributes.image});"></div>
+                                        <div class="text pl-3">
+                                            <h4>${value.name}</h4>
+                                            <p class="mb-0"><a href="#" class="price">$${value.price}</a><span class="quantity ml-3">Quantity: ${value.quantity}</span></p>
+                                        </div>
+                                    </div>`
+                                );
+                            });
+                        }
+                    }
+                });
+
+
+            });
+
+            $('.quantity-left-minus').click(function(e){
+                e.preventDefault();
+                var product_id = $(this).attr('product_id');
+                var quantity = parseInt($('#quantity'+product_id).val());
+                if(quantity>1){
+                $('#quantity'+product_id).val(quantity - 1);
+                }
+
+                $.ajax({
+                    type: "get",
+                    url: "{{ route('quantityMinus') }}",
+                    data: {'id' : product_id},
+
+                    success: function (response) {
+                        if(response.status == true){
+                            $("#total").text(response.total);
+                            $(".priceSum"+response.id).text('$'+response.priceSum);
+                            $(".itemsCount").html(response.totalQuantity);
+
+                            $('#products-nav').html("");
+                            $.each(response.products, function (index, value) {
+
+                                $("#products-nav").append(`
+                                    <div class="dropdown-item d-flex align-items-start" href="#">
+                                        <div class="img" style="background-image: url(${value.attributes.image});"></div>
+                                        <div class="text pl-3">
+                                            <h4>${value.name}</h4>
+                                            <p class="mb-0"><a href="#" class="price">$${value.price}</a><span class="quantity ml-3">Quantity: ${value.quantity}</span></p>
+                                        </div>
+                                    </div>`
+                                );
+                            });
+                        }
+                    }
+                });
+
+
+            });
+
+        });
+    </script>
+    <script>
+        $(document).on('click', '.deleteItemFromCart', function(e){
+            e.preventDefault();
+
+            var product_id = $(this).attr('product_id');
+
+            $.ajax({
+                type: "delete",
+                url: "{{ route('deleteItemFromCart') }}",
+                data: {
+                    '_token': "{{ csrf_token() }}",
+                    'id'    : product_id
+                },
+
+                success: function (response) {
+                    toastr.success(response.msg);
+                    $("#total").text(response.total);
+                    $(".itemsCount").html(response.totalQuantity);
+
+                    $('#products-nav').html("");
+                    $.each(response.products, function (index, value) {
+
+                        $("#products-nav").append(`
+                            <div class="dropdown-item d-flex align-items-start" href="#">
+                                <div class="img" style="background-image: url(${value.attributes.image});"></div>
+                                <div class="text pl-3">
+                                    <h4>${value.name}</h4>
+                                    <p class="mb-0"><a href="#" class="price">$${value.price}</a><span class="quantity ml-3">Quantity: ${value.quantity}</span></p>
+                                </div>
+                            </div>`
+                        );
+                    });
+                }
+            });
+
+        })
+
+    </script>
+
+
+
   </body>
 </html>

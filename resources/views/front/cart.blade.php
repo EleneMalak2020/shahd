@@ -36,14 +36,24 @@
                                     </div>
                                 </td>
                                 <td>${{ $product->price }}</td>
-                                <td class="quantity">
-                                    <div class="input-group">
-                                        <input type="text" name="quantity" class="quantity form-control input-number" value="{{ $product->quantity }}" min="1" max="100">
+                                <td class="quantity " >
+                                    <div class="input-group ">
+                                        <span class="input-group-btn mr-2">
+                                            <button type="button" class="quantity-left-minus btn" product_id="{{ $product->id }}"  data-type="minus" data-field="">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </span>
+                                        <input type="text" id="quantity{{ $product->id }}" name="quantity" class="quantity form-control input-number" value="{{ $product->quantity }}" min="1" max="100">
+                                        <span class="input-group-btn ml-2">
+                                            <button type="button" class="quantity-right-plus btn" product_id="{{ $product->id }}" data-type="plus" data-field="">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </span>
                                     </div>
                                 </td>
-                                <td>$89.98</td>
+                                <td class="priceSum{{ $product->id }}">${{ $product->getPriceSum() }}</td>
                                 <td>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <button type="button" class="deleteItemFromCart close" product_id="{{ $product->id }}" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true"><i class="fa fa-close"></i></span>
                                     </button>
                                 </td>
@@ -72,7 +82,7 @@
                     <hr>
                     <p class="d-flex total-price">
                         <span>Total</span>
-                        <span>$17.60</span>
+                        <span id="total">${{ \Cart::session(Auth::id())->getTotal() }}</span>
                     </p>
                 </div>
                 <p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
@@ -82,3 +92,4 @@
 </section>
 
 @endsection
+
