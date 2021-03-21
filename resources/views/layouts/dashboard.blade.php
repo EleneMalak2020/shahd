@@ -105,10 +105,10 @@
             </a>
           </li>
           <li class="nav-item">
-            {{-- <a href="{{ route('dashboard.mail') }}" class="nav-link"> --}}
+            <a href="{{ route('dashboard.aria.index') }}" class="nav-link">
               <i class="nav-icon fas fa-mail-bulk"></i>
               <p>
-                Mail
+                خدمة التوصيل
               </p>
             </a>
           </li>

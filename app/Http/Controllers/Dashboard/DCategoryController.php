@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Category;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class DCategoryController extends Controller
 {
@@ -21,7 +23,15 @@ class DCategoryController extends Controller
         $category = new Category();
         $category->name_en  = $request->name_en;
         $category->name_ar  = $request->name_ar;
-        
+
+        $imageurl = $request->file('image');
+        $imageurl->getClientOriginalName();
+        $ext    = $imageurl->getClientOriginalExtension();
+        $file   = date('YmdHis').rand(1,99999).'.'.$ext;
+        $imageurl->storeAs('public/categories', $file);
+        $category->image = $file;
+
+
         $category->save();
 
         return response()->json([
@@ -36,6 +46,20 @@ class DCategoryController extends Controller
         $category = Category::find($request->id);
         $category->name_en  =   $request->name_en;
         $category->name_ar  =   $request->name_ar;
+
+        if($request->hasFile('image')){
+            File::delete('public/products/'.$category->image);
+            Storage::disk('local')->delete('public/categories/'.$category->image);
+
+            $imageurl = $request->file('image');
+            $imageurl->getClientOriginalName();
+            $ext    = $imageurl->getClientOriginalExtension();
+            $file   = date('YmdHis').rand(1,99999).'.'.$ext;
+            $imageurl->storeAs('public/categories', $file);
+            $category->image = $file;
+        }
+
+
         $category->save();
 
         return response()->json([

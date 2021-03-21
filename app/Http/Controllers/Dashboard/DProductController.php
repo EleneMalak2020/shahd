@@ -25,6 +25,8 @@ class DProductController extends Controller
         $product->category_id   = $request->category_id;
         $product->name_en       = $request->name_en;
         $product->name_ar       = $request->name_ar;
+        $product->description_en    = $request->description_en;
+        $product->description_ar    = $request->description_ar;
         $product->price          = $request->price;
 
         $imageurl = $request->file('image');
@@ -45,7 +47,10 @@ class DProductController extends Controller
         $product = Product::find($request->id);
         $product->name_en       = $request->name_en;
         $product->name_ar       = $request->name_ar;
+        $product->description_en    = $request->description_en;
+        $product->description_ar    = $request->description_ar;
         $product->price          = $request->price;
+
 
         if($request->hasFile('image')){
             File::delete('public/products/'.$product->image);

@@ -3,8 +3,8 @@
     <div class="container">
       <div class="row no-gutters slider-text align-items-end justify-content-center">
         <div class="col-md-9 ftco-animate mb-5 text-center">
-            <p class="breadcrumbs mb-0"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Products <i class="fa fa-chevron-right"></i></span></p>
-          <h2 class="mb-0 bread">Products</h2>
+            <p class="breadcrumbs mb-0"><span class="mr-2"><a href="{{ route('home') }}">Home <i class="fa fa-chevron-right"></i></a></span> <span>{{ Request::segment(1) }} <i class="fa fa-chevron-right"></i></span></p>
+          <h2 class="mb-0 bread">{{ Request::segment(1) }}</h2>
         </div>
       </div>
     </div>

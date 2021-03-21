@@ -13,7 +13,7 @@
                       </button>
                     </div>
 
-                    <form action="" id="updateForm" method="" enctype="multipart/form-data" >
+                    <form action="" id="updateForm" >
                       @csrf
                       <div class="modal-body">
                             <div class="form-group">
@@ -23,21 +23,8 @@
                             <input type="text" id="editName_ar" name="name_ar" class="form-control" value="" >
                             </div>
                             <div class="form-group">
-                                <textarea name="description_en" id="editDescription_en" cols="50" rows="5"></textarea>
+                                <input type="text" id="editDeliveryCost" name="delivery_cost" class="form-control" value="" >
                             </div>
-                            <div class="form-group">
-                                <textarea name="description_ar" id="editDescription_ar" cols="50" rows="5"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="editPrice" name="price" class="form-control" value="" >
-                            </div>
-                            <div class="form-group">
-                                <div class="btn btn-info btn-file">
-                                <i class="fas fa-paperclip"></i> صورة المنتج
-                                <input type="file" name="image">
-                                </div>
-                            </div>
-
                       </div>
 
                       <div class="modal-footer">
@@ -62,49 +49,36 @@
                                 <th style="width: 5%">
                                     #
                                 </th>
-                                <th style="width: 15%">
-                                    القسم
-                                </th>
-                                <th style="width: 15%">
+                                <th style="width: 25%">
                                     الاسم عربي
                                 </th>
-                                <th style="width: 15%">
+                                <th style="width: 25%">
                                     الاسم انجليزي
                                 </th>
-                                <th style="width: 15%">
-                                    السعر
-                                </th>
-                                <th style="width: 10%" class="text-center">
-                                    الصورة
+                                <th style="width: 20%">
+                                    خدمة التوصيل
                                 </th>
                                 <th style="width: 25%">
                                 </th>
                             </tr>
                         </thead>
                         <tbody id="myTable">
-                            @foreach($products as $product)
+                            @foreach($arias as $aria)
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
                                     </td>
                                     <td>
-                                        {{ $product->category->name_ar }}
+                                        {{ $aria->name_ar }}
                                     </td>
                                     <td>
-                                        {{ $product->name_ar }}
+                                        {{ $aria->name_en }}
                                     </td>
                                     <td>
-                                        {{ $product->name_en }}
-                                    </td>
-                                    <td>
-                                        {{ $product->price }}
-                                    </td>
-
-                                    <td class="project-state">
-                                        <img src="{{ asset('storage/products/'.$product->image) }}" style="width: 100%">
+                                        {{ $aria->delivery_cost }}
                                     </td>
                                     <td class="project-actions text-right">
-                                        <form action="{{ route('dashboard.products.delete', $product->id) }}" method="POST">
+                                        <form action="{{ route('dashboard.aria.delete', $aria->id) }}" method="POST">
                                             @csrf
                                             @method('delete')
                                             <button class="btn btn-danger btn-sm float-left" type="submit">
@@ -114,12 +88,10 @@
                                             </button>
                                         </form>
                                         <button
-                                            product_name_en="{{ $product->name_en }}"
-                                            product_name_ar="{{ $product->name_ar }}"
-                                            product_description_en="{{ $product->description_en }}"
-                                            product_description_ar="{{ $product->description_ar }}"
-                                            product_price="{{ $product->price }}"
-                                            product_id="{{ $product->id }}"
+                                            name_ar="{{ $aria->name_ar }}"
+                                            name_en="{{ $aria->name_en }}"
+                                            delivery_cost="{{ $aria->delivery_cost }}"
+                                            aria_id="{{ $aria->id }}"
                                             type="button" class="editBtn btn btn-sm btn-primary float-right edit-category"
                                             data-toggle="modal" data-target="#editProductModal">تعديل
                                         </button>
@@ -142,37 +114,16 @@
 
                   <div class="card-body">
 
-                    <form action="{{ route('dashboard.products.store') }}" method="post" enctype="multipart/form-data" id="createForm">
+                    <form action="{{ route('dashboard.aria.store') }}" method="post" id="createForm">
                       @csrf
                         <div class="form-group">
-                            <label>القسم التابع له هذا المنتج</label>
-                            <select class="custom-select" name="category_id">
-                                    <option value="" selected disabled></option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name_ar }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" name="name_en" class="form-control" value="{{ old('name_en') }}" placeholder="اسم الحي باللغة الانجليزية" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="name_en" class="form-control" value="{{ old('name_en') }}" placeholder="اسم المنتج باللغة الانجليزية" required>
+                            <input type="text" name="name_ar" class="form-control" value="{{ old('name_ar') }}" placeholder="اسم الحي باللغة العربية" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="name_ar" class="form-control" value="{{ old('name_ar') }}" placeholder="اسم المنتج باللغة العربية" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea name="description_en" value="{{ old('description_en') }}" placeholder="الوصف باللغة الانجليزية" cols="50" rows="5"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <textarea name="description_ar" value="{{ old('description_ar') }}" placeholder="الوصف باللغة العربية" cols="50" rows="5"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input type="number" step="any" name="price" class="form-control" value="{{ old('position_en') }}" placeholder="السعر" required>
-                        </div>
-                        <div class="form-group">
-                            <div class="btn btn-info btn-file">
-                            <i class="fas fa-paperclip"></i> صورة المنتج
-                            <input type="file" name="image" required>
-                            </div>
+                            <input type="text" name="delivery_cost" class="form-control" value="{{ old('delivery_cost') }}" placeholder="تكلفة خدمة التوصيل" required>
                         </div>
                         <input class="brn btn-primary" type="submit" id="submitToCreate" value="انشاء">
                     </form>
@@ -187,25 +138,18 @@
 $(document).on('click', '.editBtn', function(e){
     e.preventDefault();
 
-    var product_id = $(this).attr('product_id');
-    var product_name_en = $(this).attr('product_name_en');
-    var product_name_ar = $(this).attr('product_name_ar');
-    var product_price = $(this).attr('product_price');
-    var product_description_en = $(this).attr('product_description_en');
-    var product_description_ar = $(this).attr('product_description_ar');
+    var name_ar = $(this).attr('name_ar');
+    var name_en = $(this).attr('name_en');
+    var delivery_cost = $(this).attr('delivery_cost');
+    var aria_id =  $(this).attr('aria_id');
+
+    $('#editName_en').val(name_en);
+    $('#editName_ar').val(name_ar);
+    $('#editDeliveryCost').val(delivery_cost);
+    $('#currentid').val(aria_id);
 
 
 
-
-    $('#editName_en').val(product_name_en);
-    $('#editName_ar').val(product_name_ar);
-    $('#editDescription_en').val(product_description_en);
-    $('#editDescription_ar').val(product_description_ar);
-    $('#editPrice').val(product_price);
-    $('#currentid').val(product_id);
-
-
-    //store update
     $(document).on('click', '#submitToUpdate', function(e){
     e.preventDefault();
 
@@ -214,11 +158,10 @@ $(document).on('click', '.editBtn', function(e){
 
         $.ajax({
             type:   "post",
-            url:    "{{ route('dashboard.products.update') }}",
+            url:    "{{ route('dashboard.aria.update') }}",
             data:   formData,
 
-            enctype: 'multipart/form-data',
-            processData: false,  // Important!
+            processData: false,
             contentType: false,
             cache: false,
 
@@ -228,6 +171,8 @@ $(document).on('click', '.editBtn', function(e){
             },
         });
     });
+
+
 });
 
 </script>

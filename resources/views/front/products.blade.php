@@ -9,7 +9,7 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="row mb-4">
                         <div class="col-md-12 d-flex justify-content-between align-items-center">
                             <h4 class="product-select">Select Types of Products</h4>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="row">
                         @foreach ($products as $product)
-                            <div class="col-md-4 d-flex">
+                            <div class="col-md-3 d-flex">
                                 <div class="product ftco-animate">
                                     <div class="img d-flex align-items-center justify-content-center"
                                         style="background-image: url({{ asset('storage/products/'.$product->image) }});">
@@ -62,44 +62,8 @@
                     </div><!-- End Row -->
                 </div>
 
-            <div class="col-md-3">
-                <div class="sidebar-box ftco-animate">
-                    <div class="categories">
-                        <h3>Product Types</h3>
-                        <ul class="p-0">
-                            @foreach ($categories as $category)
-                                <li><a href="#">Brandy <span class="fa fa-chevron-right"></span></a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div> <!-- End col -->
-
         </div> <!-- End Row -->
     </div> <!-- End container -->
 </section>
 @endsection
 
-@section('script')
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script> --}}
-
-<script>
-    // $(document).on('click', '.submitToCart', function(e){
-    //     e.preventDefault();
-
-    //     var productID = $(this).attr('productID');
-    //     $.ajax({
-    //         type: "get",
-    //         url: "{{ route('addToCart') }}",
-    //         data: {'id' : productID},
-
-
-    //         success: function (response) {
-    //             // $("#itemsCount").html(response.data);
-    //             toastr.success(response.msg);
-    //         }
-    //     });
-    // });
-</script>
-
-@endsection

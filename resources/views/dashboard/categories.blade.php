@@ -13,17 +13,22 @@
                 </button>
               </div>
 
-              <form action="" id="updateForm" method="">
+              <form action="" id="updateForm" method="" enctype="multipart/form-data">
                 @csrf
 
                 <div class="modal-body">
-                  <div class="form-group">
-                    <input type="text" id="editName_en" name="name_en" class="form-control" >
-                  </div>
-                  <div class="form-group">
-                    <input type="text" id="editName_ar" name="name_ar" class="form-control" >
-                  </div>
-
+                    <div class="form-group">
+                        <input type="text" id="editName_en" name="name_en" class="form-control" >
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="editName_ar" name="name_ar" class="form-control" >
+                    </div>
+                    <div class="form-group">
+                        <div class="btn btn-info btn-file">
+                        <i class="fas fa-paperclip"></i> صورة القسم
+                        <input type="file" name="image" required>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-footer">
@@ -48,7 +53,8 @@
                 @foreach ($categories as $category)
                   <li class="list-group-item">
                     <div class="d-flex justify-content-between category_name{{ $category->id }}">
-                      {{ $category->name_en }} -- {{ $category->name_ar }}
+                            {{ $category->name_en }} -- {{ $category->name_ar }}
+                            <img src="{{ asset('storage/categories/'.$category->image) }}" class="w-25">
                         <form action="#" method="POST">
                             @csrf
                             <div class="button-group d-flex">
@@ -75,13 +81,19 @@
             </div>
 
             <div class="card-body">
-              <form action="" method="" id="createForm">
+              <form action="" method="" id="createForm" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                   <input type="text" name="name_en" id="name_en" class="form-control" placeholder="الاسم باللغة الانجليزية" required>
                 </div>
                 <div class="form-group">
                   <input type="text" name="name_ar" id="name_ar" class="form-control" placeholder="الاسم باللغة العربية" required>
+                </div>
+                <div class="form-group">
+                    <div class="btn btn-info btn-file">
+                    <i class="fas fa-paperclip"></i> صورة القسم
+                    <input type="file" name="image" required>
+                    </div>
                 </div>
                 <div class="form-group">
                   <button  id="submitToCreate" class="btn btn-primary">انشاء</button>
@@ -104,46 +116,24 @@
 
                 $.ajax({
                     type: "post",
-                    url: "",
+                    url: "{{ route('dashboard.categories.store') }}",
                     data: formData,
 
-                    processData: false,
+                    enctype: 'multipart/form-data',
+                    processData: false,  // Important!
                     contentType: false,
                     cache: false,
 
 
                     success: function (response) {
-                    var id          = response.data.id;
-                    var name_en     = response.data.name_en;
-                    var name_ar     = response.data.name_ar;
+                        location.reload();
+                        // cleare input data
+                        $('#name_en').val('');
+                        $('#name_ar').val('');
 
 
-                    $('#myTable').append(
-                        `<li class="list-group-item">
-                        <div class="d-flex justify-content-between category_name${id}">
-                            ${name_en} -- ${name_ar}
-                            <form action="#" method="POST">
-                                <div class="button-group d-flex">
-                                    <button type="button"
-                                        category_name_en="${name_en}"
-                                        category_name_ar="${name_ar}"
-                                        category_id="${id}"
-                                        style='width:5em;height:35px' class="editBtn btn btn-sm btn-primary mr-1 edit-category" data-toggle="modal" data-target="#editCategoryModal">تعديل</button>
-
-                                    @csrf
-                                    <button style='width:4.25em;height:35px' type="submit" category_id="${id}" class="delete_btn btn btn-sm ml-1 btn-danger">مسح</button>
-                                </div>
-                            </form>
-                        </div>
-                        </li>`
-                    );
-                    // cleare input data
-                    $('#name_en').val('');
-                    $('#name_ar').val('');
-
-
-                    //success message
-                    toastr.success(response.msg);
+                        //success message
+                        toastr.success(response.msg);
 
                     }
                 });

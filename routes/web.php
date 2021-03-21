@@ -17,7 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::prefix('/dashboard')->middleware(['auth', 'role:admin|superAdmin'])->namespace('Dashboard')->as('dashboard.')->group(function(){
 
 Route::prefix('/dashboard')->middleware(['auth:admin', 'role:admin|superAdmin'])->namespace('Dashboard')->as('dashboard.')->group(function(){
 
@@ -41,6 +40,12 @@ Route::prefix('/dashboard')->middleware(['auth:admin', 'role:admin|superAdmin'])
     //admins
     Route::get('admins', 'DAdminController@index')->name('admins.index');
     Route::put('admin/accept/{id}', 'DAdminController@makeAdmin')->name('admins.makeAdmin');
+
+    //aria
+    Route::get('aria', 'DAriaController@index')->name('aria.index');
+    Route::post('aria', 'DAriaController@store')->name('aria.store');
+    Route::post('aria/update', 'DAriaController@update')->name('aria.update');
+    Route::delete('aria/delete/{aria_id}', 'DAriaController@delete')->name('aria.delete');
 
 
 });
@@ -69,6 +74,9 @@ Route::namespace('Front')->group(function(){
         Route::delete('/cart/delete', 'CartController@deleteItemFromCart')->name('deleteItemFromCart');
         Route::get('/cart/plus', 'CartController@plus')->name('quantityPlus');
         Route::get('/cart/minus', 'CartController@minus')->name('quantityMinus');
+
+        Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
+        Route::get('/checkout/chose_aria', 'CheckoutController@choseAria')->name('choseAria');
 
     });
 });
