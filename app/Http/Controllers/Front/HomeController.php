@@ -12,14 +12,14 @@ class HomeController extends Controller
     public function index()
     {
         $c = Category::all();
-        if (!$c->isEmpty()){
+        if (count($c) > 6){
             $categories = $c->random(6);
         }else{
             $categories = Category::all();
         }
 
         $p = Product::all();
-        if (!$p->isEmpty()){
+        if (count($p) > 8){
             $products = $p->random(8);
         }else{
             $products = Product::all();

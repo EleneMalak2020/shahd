@@ -18,10 +18,11 @@ class CheckoutController extends Controller
 
     public function choseAria(Request $request)
     {
-        $aria = Aria::find($request->id);
+        $aria = Aria::find($request->id);;
 
         return response()->json([
-            'data' => $aria
+            'data' => $aria->delivery_cost,
+            'subtotal' => \Cart::session(Auth::id())->getTotal()
         ]);
 
     }

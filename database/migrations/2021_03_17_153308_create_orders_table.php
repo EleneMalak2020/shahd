@@ -16,8 +16,14 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('name');
+            $table->string('aria');
             $table->string('address');
+            $table->string('phone');
             $table->decimal('price', 10, 2);
+            $table->string('delivery_cost');
+            $table->decimal('total', 10, 2);
+            $table->enum('status', ['waiting', 'approved'])->default('waiting');
             $table->timestamps();
         });
     }

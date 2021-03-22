@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->text('description_en')->nullable();
             $table->text('description_ar')->nullable();
             $table->string('image');
+            $table->unsignedBigInteger('order_count')->default(0);
             $table->timestamps();
         });
 

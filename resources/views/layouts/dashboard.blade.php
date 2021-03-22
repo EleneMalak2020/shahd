@@ -88,13 +88,28 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            {{-- <a href="{{ route('dashboard.info') }}" class="nav-link"> --}}
-              <i class="nav-icon fas fa-info"></i>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
               <p>
-                Info
+                الطلبات
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('dashboard.orders.waiting') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>قيد الانتظار</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('dashboard.orders.approved') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>مكتملة</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             {{-- <a href="{{ route('dashboard.about') }}" class="nav-link"> --}}

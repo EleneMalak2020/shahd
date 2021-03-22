@@ -47,6 +47,11 @@ Route::prefix('/dashboard')->middleware(['auth:admin', 'role:admin|superAdmin'])
     Route::post('aria/update', 'DAriaController@update')->name('aria.update');
     Route::delete('aria/delete/{aria_id}', 'DAriaController@delete')->name('aria.delete');
 
+    //orders
+    Route::get('/orders/waiting', 'DOrderController@waiting')->name('orders.waiting');
+    Route::post('/order/approve', 'DOrderController@approve')->name('order.approve');
+    Route::get('/orders/approved', 'DOrderController@approved')->name('orders.approved');
+
 
 });
 
@@ -77,6 +82,8 @@ Route::namespace('Front')->group(function(){
 
         Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
         Route::get('/checkout/chose_aria', 'CheckoutController@choseAria')->name('choseAria');
+
+        Route::post('/order/store', 'OrderController@store')->name('order.store');
 
     });
 });

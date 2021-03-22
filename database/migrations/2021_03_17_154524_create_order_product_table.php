@@ -16,6 +16,7 @@ class CreateOrderProductTable extends Migration
         Schema::create('order_product', function (Blueprint $table) {
             $table->foreignId('order_id')->references('id')->on('orders');
             $table->foreignId('product_id')->references('id')->on('products');
+            $table->unsignedBigInteger('quantity');
         });
     }
 
