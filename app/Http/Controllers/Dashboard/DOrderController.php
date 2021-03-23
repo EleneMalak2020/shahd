@@ -10,7 +10,7 @@ class DOrderController extends Controller
 {
     public function waiting()
     {
-        $orders = Order::where('status', 'waiting')->get();
+        $orders = Order::where('status', 'waiting')->latest()->get();
 
         return view('dashboard.orders_waiting', compact('orders'));
     }
@@ -27,7 +27,7 @@ class DOrderController extends Controller
 
     public function approved()
     {
-        $orders = Order::where('status', 'approved')->get();
+        $orders = Order::where('status', 'approved')->latest()->get();
 
         return view('dashboard.orders_approved', compact('orders'));
     }

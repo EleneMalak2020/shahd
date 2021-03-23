@@ -23,4 +23,13 @@ class ProductController extends Controller
 
         return view('front.single-product', compact('product'));
     }
+
+    public function category($category_id)
+    {
+        $categories = Category::all();
+        $products = Product::where('category_id', $category_id)->get();
+
+        return view('front.category', compact('products', 'categories'));
+    }
+
 }

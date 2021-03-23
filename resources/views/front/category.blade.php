@@ -19,11 +19,10 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     @foreach ($categories as $category)
-                                        <a class="dropdown-item" href="{{ route('category.index', $category->id) }}">{{ $category->name_en }}</a>
+                                        <a class="dropdown-item {{ $category->id == request()->route('category_id') ? 'active' : ''}}" href="{{ route('category.index', $category->id) }}">{{ $category->name_en }}</a>
                                     @endforeach
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item active" href="{{ route('products.index') }}">All Products</a>
-
+                                    <a class="dropdown-item" href="{{ route('products.index') }}">All Products</a>
                                 </div>
                               </div>
                             {{-- <select class="selectpicker filter-select" id="categoryID" name="category" multiple>
@@ -40,7 +39,7 @@
                                         style="background-image: url({{ asset('storage/products/'.$product->image) }});">
                                         <div class="desc">
                                             <p class="meta-prod d-flex">
-                                                <input type="text"  name="quantity" id="quantity" class="quantity form-control input-number" value="1" hidden>
+                                                <input type="text" id="quantity" name="quantity" class="quantity form-control input-number" value="1" hidden>
                                                 <a href="" productID="{{ $product->id }}" class="submitToCart d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
                                                 <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
                                                 <a href="{{ route('products.show', $product->id) }}" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>

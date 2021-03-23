@@ -50,8 +50,6 @@
   {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.js"></script> --}}
 
 
-    <!--toaster js-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
         $(document).on('click', '.submitToCart', function(e){
@@ -86,7 +84,11 @@
                     });
 
                     toastr.success(response.msg);
+                },
+                error : function (jqXHR, textStatus, errorThrown) {
+                    window.location.href = '/login';
                 }
+
             });
         });
     </script>
@@ -212,10 +214,13 @@
         })
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
+    <!--toaster js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
 
   </body>
+  @toastr_render
+
 </html>

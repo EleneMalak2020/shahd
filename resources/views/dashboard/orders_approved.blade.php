@@ -74,14 +74,17 @@
                     <th style="width: 15%">
                         التليفون
                     </th>
-                    <th style="width: 15%">
+                    <th style="width: 10%">
                         السعر
                     </th>
-                    <th style="width: 15%" >
+                    <th style="width: 10%" >
                         خدمة التوصيل
                     </th>
-                    <th style="width: 15%">
+                    <th style="width: 10%">
                         الاجمالي
+                    </th>
+                    <th style="width: 15%">
+                        وقت الاستلام
                     </th>
                     <th style="width: 25%">
                     </th>
@@ -110,6 +113,9 @@
                         </td>
                         <td>
                             {{ $order->total }}
+                        </td>
+                        <td>
+                            {{ $order->updated_at }}
                         </td>
                         <td class="project-actions text-right">
                             <button

@@ -68,7 +68,7 @@
                 <div class="cart-total mb-3">
                     <p class="d-flex total-price">
                         <span>Total</span>
-                        <span id="total">${{ \Cart::session(Auth::id())->getTotal() }}</span>
+                        <span id="total">${{ \Cart::session(Session::getId())->getTotal() }}</span>
                     </p>
                 </div>
                 <p class="text-center"><a href="{{ route('checkout.index') }}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>

@@ -22,7 +22,7 @@
                                 <label for="country">State / Country</label>
                                 <div class="select-wrap">
                                 <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select name="aria" class="selectAria form-control">
+                                    <select name="aria" class="selectAria form-control" required>
                                         <option value="">--Chose Your Aria--</option>
                                         @foreach ($arias as $aria)
                                             <option value="{{ $aria->id }}">{{ $aria->name_en }}</option>
@@ -54,7 +54,7 @@
                                 <h3 class="billing-heading mb-4">Cart Total</h3>
                                 <p class="d-flex">
                                     <span>Subtotal</span>
-                                    <span>${{ \Cart::session(Auth::id())->getTotal() }}</span>
+                                    <span>${{ \Cart::session(Session::getId())->getTotal() }}</span>
                                 </p>
                                 <p class="d-flex">
                                     <span>Delivery</span>
@@ -63,7 +63,7 @@
                                 <hr>
                                 <p class="d-flex total-price">
                                     <span>Total</span>
-                                    <span class="total">${{ \Cart::session(Auth::id())->getTotal() }}</span>
+                                    <span class="total">${{ \Cart::session(Session::getId())->getTotal() }}</span>
                                 </p>
                                 <p><button type="submit" class="btn btn-primary py-3 px-4">Place an order</button></p>
                             </div>

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Front;
 
 use App\Aria;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
 {
@@ -22,7 +23,7 @@ class CheckoutController extends Controller
 
         return response()->json([
             'data' => $aria->delivery_cost,
-            'subtotal' => \Cart::session(Auth::id())->getTotal()
+            'subtotal' => \Cart::session(Session::getId())->getTotal()
         ]);
 
     }

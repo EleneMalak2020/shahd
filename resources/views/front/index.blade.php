@@ -82,11 +82,13 @@
           <div class="container">
               <div class="row">
                   @foreach ($categories as $category)
-                    <div class="col-lg-2 col-md-4 ">
-                        <div class="sort w-100 text-center ftco-animate">
-                            <div class="img" style="background-image: url({{ asset('storage/categories/'.$category->image) }});"></div>
-                            <h3>{{ $category->name_en }}</h3>
-                        </div>
+                    <div class="col-lg-2 col-md-4">
+                        <a href="{{ route('category.index', $category->id) }}">
+                            <div class="sort w-100 text-center ftco-animate">
+                                <div class="img" style="background-image: url({{ asset('storage/categories/'.$category->image) }});"></div>
+                                <h3>{{ $category->name_en }}</h3>
+                            </div>
+                        </a>
                     </div>
                   @endforeach
               </div>

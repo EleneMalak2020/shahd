@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Front;
 
 use App\Aria;
-use App\Http\Controllers\Controller;
 use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
@@ -21,19 +22,19 @@ class OrderController extends Controller
         $order->aria = $aria->name_ar;
         $order->address = $request->address;
         $order->phone = $request->phone;
-        $order->price = \Cart::session(Auth::id())->getTotal();
+        $order->price = \Cart::session(Session::getId())->getTotal();
         $order->delivery_cost = $aria->delivery_cost;
-        $order->total = (\Cart::session(Auth::id())->getTotal() + $aria->delivery_cost);
+        $order->total = (\Cart::session(Session::getId())->getTotal() + $aria->delivery_cost);
         $order->save();
 
-        foreach(\Cart::session(Auth::id())->getContent() as $product){
+        foreach(\Cart::session(Session::getId())->getContent() as $product){
             $order->products()->attach($product->id, ['quantity' => $product->quantity]);
 
             $table = Product::find($product->id);
             $table->increment('order_count', $product->quantity);
         }
 
-        \Cart::session(Auth::id())->clear();
+        \Cart::session(Session::getId())->clear();
 
         toastr()->success('order sent successfully');
         return redirect()->route('home');

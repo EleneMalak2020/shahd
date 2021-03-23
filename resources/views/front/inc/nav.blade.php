@@ -30,11 +30,11 @@
     <div class="order-lg-last btn-group">
     <a href="#" class="btn-cart dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="flaticon-shopping-bag"></span>
-        <div class="d-flex justify-content-center align-items-center"><small class="itemsCount">{{  \Cart::session(Auth::id())->getTotalQuantity() }}</small></div>
+        <div class="d-flex justify-content-center align-items-center"><small class="itemsCount">{{  \Cart::session(Session::getId())->getTotalQuantity() }}</small></div>
     </a>
     <div class="dropdown-menu dropdown-menu-right">
 
-                <?php $products = \Cart::session(Auth::id())->getContent() ?>
+                <?php $products = \Cart::session(Session::getId())->getContent() ?>
                 <div id="products-nav">
                     @foreach ($products as $product)
                     <div class="dropdown-item d-flex align-items-start" href="#">

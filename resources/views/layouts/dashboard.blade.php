@@ -128,10 +128,10 @@
             </a>
           </li>
           <li class="nav-item">
-            {{-- <a href="{{ route('dashboard.logos.index') }}" class="nav-link"> --}}
+            <a href="{{ route('dashboard.end.index') }}" class="nav-link">
               <i class="nav-icon fa fa-heart"></i>
               <p>
-                Logos
+                اقفال اليوم
               </p>
             </a>
           </li>

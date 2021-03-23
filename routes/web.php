@@ -52,6 +52,10 @@ Route::prefix('/dashboard')->middleware(['auth:admin', 'role:admin|superAdmin'])
     Route::post('/order/approve', 'DOrderController@approve')->name('order.approve');
     Route::get('/orders/approved', 'DOrderController@approved')->name('orders.approved');
 
+    //End
+    Route::get('/end', 'DEndController@index')->name('end.index');
+    Route::post('/end', 'DEndController@store')->name('end.store');
+
 
 });
 
@@ -70,19 +74,20 @@ Route::namespace('Front')->group(function(){
 
     Route::get('/', 'HomeController@index')->name('home');
 
+
     Route::get('/products', 'ProductController@index')->name('products.index');
+    Route::get('/products/category/{category_id}', 'ProductController@category')->name('category.index');
     Route::get('/products/{product_id}', 'ProductController@show')->name('products.show');
 
     Route::middleware('auth')->group(function(){
-        Route::get('/cart', 'CartController@index')->name('cart.index');
         Route::get('/cart/add', 'CartController@addToCart')->name('addToCart');
+        Route::get('/cart', 'CartController@index')->name('cart.index');
         Route::delete('/cart/delete', 'CartController@deleteItemFromCart')->name('deleteItemFromCart');
         Route::get('/cart/plus', 'CartController@plus')->name('quantityPlus');
         Route::get('/cart/minus', 'CartController@minus')->name('quantityMinus');
 
         Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
         Route::get('/checkout/chose_aria', 'CheckoutController@choseAria')->name('choseAria');
-
         Route::post('/order/store', 'OrderController@store')->name('order.store');
 
     });
