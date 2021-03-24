@@ -55,7 +55,7 @@
       </div>
   </section>
 
-  <section class="ftco-section ftco-no-pb">
+  {{-- <section class="ftco-section ftco-no-pb">
           <div class="container">
               <div class="row">
                   <div class="col-md-6 img img-3 d-flex justify-content-center align-items-center" style="background-image: url({{ asset('front/images/about.jpg') }});">
@@ -76,7 +76,7 @@
                   </div>
               </div>
           </div>
-      </section>
+    </section> --}}
 
       <section class="ftco-section ftco-no-pb">
           <div class="container">
@@ -86,7 +86,7 @@
                         <a href="{{ route('category.index', $category->id) }}">
                             <div class="sort w-100 text-center ftco-animate">
                                 <div class="img" style="background-image: url({{ asset('storage/categories/'.$category->image) }});"></div>
-                                <h3>{{ $category->name_en }}</h3>
+                                <h3>{{ $category->name }}</h3>
                             </div>
                         </a>
                     </div>
@@ -99,8 +99,8 @@
           <div class="container">
               <div class="row justify-content-center pb-5">
         <div class="col-md-7 heading-section text-center ftco-animate">
-            <span class="subheading">Our Delightful offerings</span>
-          <h2>Tastefully Yours</h2>
+            <span class="subheading">{{ __('index.Our Delightful offerings') }}</span>
+          <h2>{{ __('index.Tastefully Yours') }}</h2>
         </div>
       </div>
               <div class="row">
@@ -120,9 +120,18 @@
                                 </div>
                                 <div class="text text-center">
                                     <span class="sale">Sale</span>
-                                    <span class="category">{{ $product->category->name_en }}</span>
-                                    <h2>{{ $product->name_en }}</h2>
-                                    <p class="mb-0"><span class="price price-sale">$69.00</span> <span class="price">${{ $product->price }}</span></p>
+                                    @if ( LaravelLocalization::getCurrentLocale() == 'en')
+                                        <span class="category">{{ $product->category->name_en }}</span>
+                                    @else
+                                        <span class="category">{{ $product->category->name_ar }}</span>
+                                    @endif
+                                    <h2>{{ $product->name }}</h2>
+                                    @if ( LaravelLocalization::getCurrentLocale() == 'en')
+                                    <p class="mb-0"><span class="price">LE {{ $product->price }}</span></p>
+                                    @else
+                                    <p class="mb-0"><span class="price"> {{ $product->price }} جنيه</span></p>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>
@@ -130,7 +139,7 @@
               </div>
               <div class="row justify-content-center">
                   <div class="col-md-4">
-                      <a href="{{ route('products.index') }}" class="btn btn-primary d-block">View All Products <span class="fa fa-long-arrow-right"></span></a>
+                      <a href="{{ route('products.index') }}" class="btn btn-primary d-block">{{ __('index.View All Products')  }}<span class="fa fa-long-arrow-right"></span></a>
                   </div>
               </div>
           </div>

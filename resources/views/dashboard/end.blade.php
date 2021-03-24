@@ -33,6 +33,7 @@
                         {{ $product->price * $product->order_count }}
                     </th>
                 </tr>
+
             @endforeach
         </tbody>
         <tbody>
@@ -75,10 +76,14 @@
         </tfoot>
     </table>
     </div>
-    <form action="{{ route('dashboard.end.store') }}" method="POST">
+    @if(count(App\Order::where('status', 'waiting')->get()) > 0)
+        <p class="bg-red">لا يمكنك اقفال اليوم وهناك طلبات قيد الانتظار</p>
+    @else
+        <form action="{{ route('dashboard.end.store') }}" method="POST">
         @csrf
         <button type="submit" class="btn btn-success">حفظ واقفال</button>
-    </form>
+        </form>
+    @endif
 </div>
 
 

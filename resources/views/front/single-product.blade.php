@@ -11,25 +11,12 @@
             </div>
             <div class="col-lg-6 product-details pl-md-5 ftco-animate">
                     <h3>{{ $product->name }}</h3>
-                    <div class="rating d-flex">
-                            {{-- Rating system
-                                <p class="text-left mr-4">
-                                <a href="#" class="mr-2">5.0</a>
-                                <a href="#"><span class="fa fa-star"></span></a>
-                                <a href="#"><span class="fa fa-star"></span></a>
-                                <a href="#"><span class="fa fa-star"></span></a>
-                                <a href="#"><span class="fa fa-star"></span></a>
-                                <a href="#"><span class="fa fa-star"></span></a>
-                            </p>
-                            <p class="text-left mr-4">
-                                <a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">Rating</span></a>
-                            </p>--}}
-                            <p class="text-left">
-                                <a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
-                            </p>
-                    </div>
-                    <p class="price"><span>${{ $product->price }}</span></p>
-                    <p>{{ $product->description_en }}</p>
+                    @if ( LaravelLocalization::getCurrentLocale() == 'en')
+                    <p class="price"><span>LE {{ $product->price }}</span></p>
+                    @else
+                    <p class="price"><span> {{ $product->price }} جنيه</span></p>
+                    @endif
+                    <p>{{ $product->description }}</p>
                     <div class="row mt-4">
                         <div class="input-group col-md-6 d-flex mb-3">
                             <span class="input-group-btn mr-2">
@@ -50,9 +37,9 @@
 
                                 <a href="" class="submitToCart btn btn-primary py-3 px-5 mr-2"
                                     productID="{{ $product->id }}"
-                                    >Add to Cart
+                                    >{{ __('single_product.Add to Cart') }}
                                 </a>
-                                <a href="cart.html" class="btn btn-primary py-3 px-5">Buy now</a>
+                                <a href="cart.html" class="btn btn-primary py-3 px-5">{{ __('single_product.Buy now') }}</a>
                             </p>
                     </div>
                     </div><!-- end row -->

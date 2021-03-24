@@ -11,6 +11,7 @@
   {{-- <!-- Ionicons -->
   <link rel="stylesheet" href="{{ asset('admin/https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css') }}"> --}}
   <!-- Tempusdominus Bbootstrap 4 -->
+
   <link rel="stylesheet" href="{{ asset('admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
@@ -33,10 +34,16 @@
 
     <!-- toaster link css -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ asset('admin/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
+
+
 
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+
 <div class="wrapper">
 
 
@@ -136,6 +143,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{ route('dashboard.end.reports') }}" class="nav-link">
+              <i class="nav-icon fa fa-heart"></i>
+              <p>
+                التقارير
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{ route('dashboard.admins.index') }}" class="nav-link">
               <i class="nav-icon fa fa-user-plus"></i>
               <p>
@@ -203,7 +218,6 @@
 <script src="{{ asset('admin/plugins/sparklines/sparkline.js') }}"></script>
 <!-- daterangepicker -->
 <script src="{{ asset('admin/plugins/moment/moment.min.js') }}"></script>
-<script src="{{ asset('admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="{{ asset('admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 <!-- Summernote -->
@@ -212,8 +226,15 @@
 <script src="{{ asset('admin/dist/js/adminlte.js') }}"></script>
 <!--toaster js-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<!-- Select2 -->
+<script src="{{ asset('admin/plugins/select2/js/select2.full.min.js') }}"></script>
+<script>
+    $('.select2').select2({
+        theme: 'bootstrap4'
+    })
 
-</body>
+</script>
+
 
 @toastr_render
 

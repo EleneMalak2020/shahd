@@ -55,6 +55,8 @@ Route::prefix('/dashboard')->middleware(['auth:admin', 'role:admin|superAdmin'])
     //End
     Route::get('/end', 'DEndController@index')->name('end.index');
     Route::post('/end', 'DEndController@store')->name('end.store');
+    Route::get('/end/reports', 'DEndController@reports')->name('end.reports');
+    Route::get('/end/report', 'DEndController@report_select')->name('report_select');
 
 
 });
@@ -70,26 +72,35 @@ Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
 
 Route::get('/home', 'HomeController@index');
 
-Route::namespace('Front')->group(function(){
 
-    Route::get('/', 'HomeController@index')->name('home');
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){
+
+        Route::namespace('Front')->group(function(){
+
+            Route::get('/', 'HomeController@index')->name('home');
+            Route::get('/products', 'ProductController@index')->name('products.index');
+            Route::get('/products/category/{category_id}', 'ProductController@category')->name('category.index');
+            Route::get('/products/{product_id}', 'ProductController@show')->name('products.show');
+
+            Route::middleware('auth')->group(function(){
+                Route::get('/cart/add', 'CartController@addToCart')->name('addToCart');
+                Route::get('/cart', 'CartController@index')->name('cart.index');
+                Route::delete('/cart/delete', 'CartController@deleteItemFromCart')->name('deleteItemFromCart');
+                Route::get('/cart/plus', 'CartController@plus')->name('quantityPlus');
+                Route::get('/cart/minus', 'CartController@minus')->name('quantityMinus');
+
+                Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
+                Route::get('/checkout/chose_aria', 'CheckoutController@choseAria')->name('choseAria');
+                Route::post('/order/store', 'OrderController@store')->name('order.store');
+
+            });
 
 
-    Route::get('/products', 'ProductController@index')->name('products.index');
-    Route::get('/products/category/{category_id}', 'ProductController@category')->name('category.index');
-    Route::get('/products/{product_id}', 'ProductController@show')->name('products.show');
-
-    Route::middleware('auth')->group(function(){
-        Route::get('/cart/add', 'CartController@addToCart')->name('addToCart');
-        Route::get('/cart', 'CartController@index')->name('cart.index');
-        Route::delete('/cart/delete', 'CartController@deleteItemFromCart')->name('deleteItemFromCart');
-        Route::get('/cart/plus', 'CartController@plus')->name('quantityPlus');
-        Route::get('/cart/minus', 'CartController@minus')->name('quantityMinus');
-
-        Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
-        Route::get('/checkout/chose_aria', 'CheckoutController@choseAria')->name('choseAria');
-        Route::post('/order/store', 'OrderController@store')->name('order.store');
-
+        });
     });
-});
+
 

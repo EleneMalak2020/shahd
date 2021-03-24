@@ -19,7 +19,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     @foreach ($categories as $category)
-                                        <a class="dropdown-item {{ $category->id == request()->route('category_id') ? 'active' : ''}}" href="{{ route('category.index', $category->id) }}">{{ $category->name_en }}</a>
+                                        <a class="dropdown-item {{ $category->id == request()->route('category_id') ? 'active' : ''}}" href="{{ route('category.index', $category->id) }}">{{ $category->name }}</a>
                                     @endforeach
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('products.index') }}">All Products</a>
@@ -47,10 +47,17 @@
                                         </div>
                                     </div>
                                     <div class="text text-center">
-                                        <span class="sale">Sale</span>
-                                        <span class="category">{{ $product->category->name_en }}</span>
-                                        <h2>{{ $product->name_en }}</h2>
-                                        <p class="mb-0"><span class="price price-sale">$69.00</span> <span class="price">${{ $product->price }}</span></p>
+                                        @if ( LaravelLocalization::getCurrentLocale() == 'en')
+                                            <span class="category">{{ $product->category->name_en }}</span>
+                                        @else
+                                            <span class="category">{{ $product->category->name_ar }}</span>
+                                        @endif
+                                        <h2>{{ $product->name }}</h2>
+                                        @if ( LaravelLocalization::getCurrentLocale() == 'en')
+                                            <p class="mb-0"><span class="price">LE {{ $product->price }}</span></p>
+                                        @else
+                                            <p class="mb-0"><span class="price"> {{ $product->price }} جنيه</span></p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

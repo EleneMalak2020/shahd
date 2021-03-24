@@ -17,7 +17,19 @@
                 </p>
         </div>
         <div class="reg">
-            <p class="mb-0"><a href="#" class="mr-2">Sign Up</a> <a href="#">Log In</a></p>
+            @guest
+            <p class="mb-0"><a href="{{ route('register') }}" class="mr-2">Sign Up</a> <a href="{{ route('login') }}">Log In</a></p>
+            @else
+            <a class="dropdown-item text-light mb-0" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+@endguest
         </div>
             </div>
         </div>
@@ -26,7 +38,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-    <a class="navbar-brand" href="{{ route('home') }}">Liquor <span>store</span></a>
+    <a class="navbar-brand" href="{{ route('home') }}">{{ __('nav.Shahd') }} <span>{{ __('nav.Al-Sham') }}</span></a>
     <div class="order-lg-last btn-group">
     <a href="#" class="btn-cart dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="flaticon-shopping-bag"></span>
@@ -59,19 +71,16 @@
 
     <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-        <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown04">
-            <a class="dropdown-item" href="product.html">Products</a>
-            <a class="dropdown-item" href="product-single.html">Single Product</a>
-            <a class="dropdown-item" href="cart.html">Cart</a>
-            <a class="dropdown-item" href="checkout.html">Checkout</a>
-        </div>
+        <li class="nav-item active"><a href="{{ route('home') }}" class="nav-link">{{ __('nav.Home') }}</a></li>
+        <li class="nav-item"><a href="{{ route('products.index') }}" class="nav-link">{{ __('nav.Products') }}</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-link">{{ __('nav.About') }}</a></li>
+        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+        <li class="nav-item">
+            <a rel="alternate" class="nav-link" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                {{ $properties['native'] }}
+            </a>
         </li>
-        <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-        <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+        @endforeach
         </ul>
     </div>
     </div>
