@@ -114,10 +114,10 @@
             </ul>
           </li>
           <li class="nav-item">
-            {{-- <a href="{{ route('dashboard.about') }}" class="nav-link"> --}}
+            <a href="{{ route('dashboard.info') }}" class="nav-link">
               <i class="nav-icon fas fa-address-card"></i>
               <p>
-                About
+                معلومات الموقع
               </p>
             </a>
           </li>

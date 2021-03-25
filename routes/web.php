@@ -61,6 +61,11 @@ Route::prefix('/dashboard')->middleware(['auth:admin', 'role:admin|superAdmin'])
     //notification
     Route::get('MarkAsRead_all', 'DHomeController@MarkAsRead_all')->name('MarkAsRead_all');
 
+    //info
+    Route::get('/info', 'DInfoController@index')->name('info');
+    Route::put('/info', 'DInfoController@update')->name('info.update');
+
+
 });
 
 Auth::routes();

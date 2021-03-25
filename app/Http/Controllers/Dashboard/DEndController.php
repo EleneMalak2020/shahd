@@ -6,9 +6,12 @@ use App\End;
 use App\Order;
 use App\Product;
 use App\Sproduct;
+use App\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Notification as AppNotification;
 
 class DEndController extends Controller
 {
@@ -52,6 +55,11 @@ class DEndController extends Controller
         foreach($products as $product){
             $product->order_count = 0;
             $product->save();
+        }
+
+        $notifications = Notification::all();
+        foreach($notifications as $notification){
+            $notification->delete();
         }
 
         return redirect()->route('dashboard.home');
