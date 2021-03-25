@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\End;
-use App\Http\Controllers\Controller;
 use App\Order;
 use App\Product;
 use App\Sproduct;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DEndController extends Controller
 {
@@ -16,7 +17,9 @@ class DEndController extends Controller
         $products = Product::where('order_count', '>', '0')->get();
         $deliveries = Order::all()->pluck('delivery_cost')->sum();
         $total = Order::all()->pluck('total')->sum();
-        return view('dashboard.end', compact('products', 'deliveries', 'total'));
+        $admin = Auth::guard('admin')->user();
+
+        return view('dashboard.end', compact('products', 'deliveries', 'total', 'admin'));
     }
 
     public function store()
@@ -57,7 +60,9 @@ class DEndController extends Controller
     public function reports()
     {
         $ends = End::all();
-        return view('dashboard.reports', compact('ends'));
+        $admin = Auth::guard('admin')->user();
+
+        return view('dashboard.reports', compact('ends', 'admin'));
     }
 
     public function report_select(Request $request)

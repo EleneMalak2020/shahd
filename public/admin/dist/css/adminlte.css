@@ -3081,13 +3081,14 @@ input[type="button"].btn-block {
 }
 
 .dropdown-menu {
+    direction: ltr;
   position: absolute;
   top: 100%;
   left: 0;
   z-index: 1000;
   display: none;
   float: left;
-  min-width: 10rem;
+  min-width: 16rem;
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 1rem;

@@ -58,6 +58,8 @@ Route::prefix('/dashboard')->middleware(['auth:admin', 'role:admin|superAdmin'])
     Route::get('/end/reports', 'DEndController@reports')->name('end.reports');
     Route::get('/end/report', 'DEndController@report_select')->name('report_select');
 
+    //notification
+    Route::get('MarkAsRead_all', 'DHomeController@MarkAsRead_all')->name('MarkAsRead_all');
 
 });
 

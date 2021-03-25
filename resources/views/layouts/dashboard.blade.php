@@ -36,17 +36,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet"/>
     <link rel="stylesheet" href="{{ asset('admin/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-
-
-
-
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
 <div class="wrapper">
 
-
+    @include('dashboard.inc.nav')
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -233,6 +228,13 @@
         theme: 'bootstrap4'
     })
 
+</script>
+
+<script>
+    setInterval(function(){
+        $('#countNotification').load(window.location.href +  " #countNotification")
+        $('#refreshNotification').load(window.location.href + " #refreshNotification")
+    }, 5000);
 </script>
 
 

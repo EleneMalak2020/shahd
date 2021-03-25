@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
 use App\Order;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DOrderController extends Controller
 {
     public function waiting()
     {
         $orders = Order::where('status', 'waiting')->latest()->get();
+        $admin = Auth::guard('admin')->user();
 
-        return view('dashboard.orders_waiting', compact('orders'));
+        return view('dashboard.orders_waiting', compact('orders', 'admin'));
     }
 
     public function approve(Request $request)

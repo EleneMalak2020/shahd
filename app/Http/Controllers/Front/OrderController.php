@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Admin;
 use App\Aria;
+use App\User;
 use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\NewOrder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
@@ -34,7 +38,13 @@ class OrderController extends Controller
             $table->increment('order_count', $product->quantity);
         }
 
+
+
         \Cart::session(Session::getId())->clear();
+
+        //Notification
+        $admin = Admin::get();
+        Notification::send($admin, new NewOrder($order));
 
         toastr()->success('order sent successfully');
         return redirect()->route('home');

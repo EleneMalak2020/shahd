@@ -6,6 +6,7 @@ use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,8 +16,9 @@ class DProductController extends Controller
     {
         $products = Product::all();
         $categories = Category::all();
+        $admin = Auth::guard('admin')->user();
 
-        return view('dashboard.products', compact('products', 'categories'));
+        return view('dashboard.products', compact('products', 'categories', 'admin'));
     }
 
     public function store(Request $request)

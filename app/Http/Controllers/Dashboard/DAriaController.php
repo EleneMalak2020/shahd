@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Aria;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DAriaController extends Controller
 {
     public function index()
     {
         $arias = Aria::all();
-        return view('dashboard.aria', compact('arias'));
+        $admin = Auth::guard('admin')->user();
+
+        return view('dashboard.aria', compact('arias', 'admin'));
     }
 
     public function store(Request $request)

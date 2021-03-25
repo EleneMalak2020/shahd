@@ -6,6 +6,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,8 +15,9 @@ class DCategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
+        $admin = Auth::guard('admin')->user();
 
-        return view('dashboard.categories', compact('categories'));
+        return view('dashboard.categories', compact('categories', 'admin'));
     }
 
     public function store(Request $request)
