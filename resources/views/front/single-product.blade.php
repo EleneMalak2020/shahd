@@ -39,7 +39,7 @@
                                     productID="{{ $product->id }}"
                                     >{{ __('single_product.Add to Cart') }}
                                 </a>
-                                <a href="cart.html" class="btn btn-primary py-3 px-5">{{ __('single_product.Buy now') }}</a>
+                                {{-- <a href="cart.html" class="btn btn-primary py-3 px-5">{{ __('single_product.Buy now') }}</a> --}}
                             </p>
                     </div>
                     </div><!-- end row -->

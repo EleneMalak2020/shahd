@@ -6,9 +6,9 @@
             <h2 class="ftco-heading-2 logo"><a href="#">Liquor <span>Store</span></a></h2>
             <p>Far far away, behind the word mountains, far from the countries.</p>
             <ul class="ftco-footer-social list-unstyled mt-2">
-              <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
-              <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-              <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
+              <li class="ftco-animate"><a href="{{ $info->instagram_link }}"><span class="fa fa-twitter"></span></a></li>
+              <li class="ftco-animate"><a href="{{ $info->facebook_link }}"><span class="fa fa-facebook"></span></a></li>
+              <li class="ftco-animate"><a href="{{ $info->twitter_link }}"><span class="fa fa-instagram"></span></a></li>
             </ul>
           </div>
         </div>
@@ -50,16 +50,20 @@
               <h2 class="ftco-heading-2">Have a Questions?</h2>
               <div class="block-23 mb-3">
                 <ul>
-                  <li><span class="icon fa fa-map marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                  <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                  <li><a href="#"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">info@yourdomain.com</span></a></li>
+                    @if ( LaravelLocalization::getCurrentLocale() == 'en')
+                        <li><a href="{{ $info->location_link }}"><span class="icon fa fa-map marker"></span><span class="text">{{ $info->location_en }}</span></li>
+                    @else
+                        <li><a href="{{ $info->location_link }}"><span class="icon fa fa-map marker"></span><span class="text">{{ $info->location_ar }}</span></li>
+                    @endif
+                  <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">{{ $info->phone }}</span></a></li>
+                  <li><a href="#"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">{{ $info->email }}</span></a></li>
                 </ul>
               </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="container-fluid px-0 py-5 bg-black">
+    {{-- <div class="container-fluid px-0 py-5 bg-black">
         <div class="container">
             <div class="row">
             <div class="col-md-12">
@@ -70,7 +74,7 @@
             </div>
           </div>
         </div>
-    </div>
+    </div> --}}
   </footer>
 
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>

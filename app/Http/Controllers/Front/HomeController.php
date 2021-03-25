@@ -6,6 +6,7 @@ use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Info;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class HomeController extends Controller
@@ -25,6 +26,8 @@ class HomeController extends Controller
         }else{
             $products = Product::select('id', 'category_id', 'name_'.LaravelLocalization::getCurrentLocale().' as name', 'price', 'image')->get();
         }
-        return view('front.index', compact('categories', 'products'));
+
+        $info = Info::find(1);
+        return view('front.index', compact('categories', 'products', 'info'));
     }
 }

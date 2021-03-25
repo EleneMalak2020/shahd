@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Info;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,8 +20,9 @@ class CartController extends Controller
     public function index()
     {
         $products = \Cart::session(Session::getId())->getContent();
+        $info = Info::find(1);
 
-        return view('front.cart', compact('products'));
+        return view('front.cart', compact('products', 'info'));
     }
 
     public function addToCart(Request $request)

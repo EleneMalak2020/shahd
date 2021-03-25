@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Aria;
+use App\Info;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,8 @@ class CheckoutController extends Controller
     {
         $user = Auth::user();
         $arias = Aria::all();
-        return view('front.checkout', compact('user', 'arias'));
+        $info = Info::find(1);
+        return view('front.checkout', compact('user', 'arias', 'info'));
     }
 
     public function choseAria(Request $request)

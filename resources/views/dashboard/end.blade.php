@@ -78,6 +78,8 @@
     </div>
     @if(count(App\Order::where('status', 'waiting')->get()) > 0)
         <p class="bg-red">لا يمكنك اقفال اليوم وهناك طلبات قيد الانتظار</p>
+    @elseif(count(App\Order::where('status', 'approved')->get()) < 1)
+        <p class="bg-red">لا يوجد طلبات حتى الان</p>
     @else
         <form action="{{ route('dashboard.end.store') }}" method="POST">
         @csrf
