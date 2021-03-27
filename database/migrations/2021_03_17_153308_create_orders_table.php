@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('price', 10, 2);
             $table->string('delivery_cost');
             $table->decimal('total', 10, 2);
-            $table->enum('status', ['waiting', 'approved'])->default('waiting');
+            $table->enum('status', ['1', '2', '3', '4', '5'])->default('1');
             $table->timestamps();
         });
     }

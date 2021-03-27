@@ -49,8 +49,13 @@ Route::prefix('/dashboard')->middleware(['auth:admin', 'role:admin|superAdmin'])
 
     //orders
     Route::get('/orders/waiting', 'DOrderController@waiting')->name('orders.waiting');
-    Route::post('/order/approve', 'DOrderController@approve')->name('order.approve');
-    Route::get('/orders/approved', 'DOrderController@approved')->name('orders.approved');
+
+    Route::post('/orders/in_progress', 'DOrderController@post_in_progress')->name('order.in_progress');
+    Route::get('/orders/in_progress', 'DOrderController@in_progress')->name('orders.in_progress');
+    Route::post('/order/finished', 'DOrderController@post_finished')->name('order.finished');
+    Route::get('/orders/finished', 'DOrderController@finished')->name('orders.finished');
+    Route::get('/orders/canceld', 'DOrderController@canceld')->name('orders.canceld');
+    Route::post('/order_list/cancel', 'DOrderController@cancel_order')->name('cancel_order');
 
     //End
     Route::get('/end', 'DEndController@index')->name('end.index');
@@ -103,6 +108,9 @@ Route::group(
                 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
                 Route::get('/checkout/chose_aria', 'CheckoutController@choseAria')->name('choseAria');
                 Route::post('/order/store', 'OrderController@store')->name('order.store');
+
+                Route::get('/order_list/{user_id}', 'OrderController@order_list')->name('order_list');
+                Route::post('/order_list/{order_id}/cancel', 'OrderController@cancel_order')->name('cancel_order');
 
             });
 

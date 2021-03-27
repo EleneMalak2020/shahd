@@ -106,9 +106,21 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('dashboard.orders.approved') }}" class="nav-link">
+                <a href="{{ route('dashboard.orders.in_progress') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>قيد التحضير</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('dashboard.orders.finished') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>مكتملة</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('dashboard.orders.canceld') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>ملغية</p>
                 </a>
               </li>
             </ul>
@@ -236,6 +248,8 @@
         $('#refreshNotification').load(window.location.href + " #refreshNotification")
     }, 5000);
 </script>
+
+
 
 
 @toastr_render

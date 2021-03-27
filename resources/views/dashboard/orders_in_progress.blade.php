@@ -46,15 +46,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <form action="{{ route('dashboard.order.in_progress') }}" id="updateForm" method="POST">
+                <form action="{{ route('dashboard.order.finished') }}" id="updateForm" method="POST">
                     @csrf
-                    <input type="text" name="id" class="form-control currentid" value="" hidden>
-                    <input type="submit" class="btn btn-primary"  value="استلام">
-                </form>
-                <form action="{{ route('dashboard.cancel_order') }}" method="POST">
-                    @csrf
-                    <input type="text" name="id" class="form-control currentid" value="" hidden>
-                    <Button type="submit" class="btn btn-danger">الغاء</Button>
+                    <input type="text" name="id" id="currentid" class="form-control" value="" hidden>
+                    <input type="submit" class="btn btn-primary"  value="تم الانتهاء">
                 </form>
             </div>
         </div>
@@ -65,7 +60,7 @@
 <section class="content col-md-12">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">قيد الانتظار</h3>
+        <h3 class="card-title">قيد التحضير</h3>
       </div>
       <div class="card-body p-0">
         <table class="table table-striped projects">
@@ -93,7 +88,7 @@
                         الاجمالي
                     </th>
                     <th style="width: 15%">
-                        الوقت
+                        وقت الاستلام
                     </th>
                     <th style="width: 25%">
                     </th>
@@ -124,19 +119,19 @@
                             {{ $order->total }}
                         </td>
                         <td>
-                            {{ $order->created_at }}
+                            {{ $order->updated_at }}
                         </td>
                         <td class="project-actions text-right">
                             <button
-                                order_id="{{ $order->id }}"
-                                order_aria="{{ $order->aria }}"
-                                order_address="{{ $order->address }}"
-                                order_products="{{ $order->products }}"
-                                order_price="{{ $order->price }}"
-                                order_deleviry_cost="{{ $order->delivery_cost }}"
-                                order_total="{{ $order->total }}"
-                                type="button" class="detailsbtn btn btn-sm btn-primary float-right edit-category"
-                                data-toggle="modal" data-target="#OrderDetailsModal">تفاصيل الأوردر
+                            order_id="{{ $order->id }}"
+                            order_aria="{{ $order->aria }}"
+                            order_address="{{ $order->address }}"
+                            order_products="{{ $order->products }}"
+                            order_price="{{ $order->price }}"
+                            order_deleviry_cost="{{ $order->delivery_cost }}"
+                            order_total="{{ $order->total }}"
+                            type="button" class="detailsbtn btn btn-sm btn-primary float-right edit-category"
+                            data-toggle="modal" data-target="#OrderDetailsModal">تفاصيل الأوردر
                             </button>
                         </td>
                     </tr>
@@ -206,7 +201,9 @@
 
         $('.order_aria').html(order_aria);
         $('.order_address').html(order_address);
-        $('.currentid').val(order_id);
+        $('#currentid').val(order_id);
     });
 </script>
 @endsection
+
+

@@ -46,16 +46,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <form action="{{ route('dashboard.order.in_progress') }}" id="updateForm" method="POST">
-                    @csrf
-                    <input type="text" name="id" class="form-control currentid" value="" hidden>
-                    <input type="submit" class="btn btn-primary"  value="استلام">
-                </form>
-                <form action="{{ route('dashboard.cancel_order') }}" method="POST">
-                    @csrf
-                    <input type="text" name="id" class="form-control currentid" value="" hidden>
-                    <Button type="submit" class="btn btn-danger">الغاء</Button>
-                </form>
+                <button type="submit" class="btn btn-primary" data-dismiss="modal">اغلاق</button>
             </div>
         </div>
     </div>
@@ -65,7 +56,7 @@
 <section class="content col-md-12">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">قيد الانتظار</h3>
+        <h3 class="card-title">الطلبات المكتملة</h3>
       </div>
       <div class="card-body p-0">
         <table class="table table-striped projects">
@@ -83,17 +74,20 @@
                     <th style="width: 15%">
                         التليفون
                     </th>
-                    <th style="width: 10%">
+                    <th style="width: 5%">
                         السعر
                     </th>
-                    <th style="width: 10%" >
+                    <th style="width: 5%" >
                         خدمة التوصيل
                     </th>
-                    <th style="width: 10%">
+                    <th style="width: 5%">
                         الاجمالي
                     </th>
                     <th style="width: 15%">
-                        الوقت
+                        وقت الالغاء
+                    </th>
+                    <th style="width: 15%">
+                        تم الالغاء بواسطة
                     </th>
                     <th style="width: 25%">
                     </th>
@@ -124,11 +118,16 @@
                             {{ $order->total }}
                         </td>
                         <td>
-                            {{ $order->created_at }}
+                            {{ $order->updated_at }}
                         </td>
+                        @if( $order->status == '4' )
+                        <td><div class="bg-warning color-palette"><span class="text-dark">الزبون</span></div></td>
+                        @endif
+                        @if( $order->status == '5' )
+                        <td><div class="bg-danger color-palette"><span class="text-dark">الأدمن</span></div></td>
+                        @endif
                         <td class="project-actions text-right">
                             <button
-                                order_id="{{ $order->id }}"
                                 order_aria="{{ $order->aria }}"
                                 order_address="{{ $order->address }}"
                                 order_products="{{ $order->products }}"
@@ -155,7 +154,6 @@
     $(document).on('click', '.detailsbtn', function(e){
     e.preventDefault();
 
-        var order_id = $(this).attr('order_id');
         var order_aria = $(this).attr('order_aria');
         var order_address = $(this).attr('order_address');
         var order_products = $(this).attr('order_products');
@@ -206,7 +204,8 @@
 
         $('.order_aria').html(order_aria);
         $('.order_address').html(order_address);
-        $('.currentid').val(order_id);
     });
 </script>
 @endsection
+
+

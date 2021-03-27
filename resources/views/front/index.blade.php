@@ -95,6 +95,8 @@
           </div>
       </section>
 
+
+
       <section class="ftco-section">
           <div class="container">
               <div class="row justify-content-center pb-5">
@@ -103,46 +105,46 @@
           <h2>{{ __('index.Tastefully Yours') }}</h2>
         </div>
       </div>
-              <div class="row">
-                    @foreach ($products as $product)
-                        <div class="col-md-3 d-flex">
-                            <div class="product ftco-animate">
-                                <div class="img d-flex align-items-center justify-content-center"
-                                    style="background-image: url({{ asset('storage/products/'.$product->image) }});">
-                                    <div class="desc">
-                                        <p class="meta-prod d-flex">
-                                            <input type="text" id="quantity" name="quantity" class="quantity form-control input-number" value="1" hidden>
-                                            <a href="" productID="{{ $product->id }}" class="submitToCart d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-                                            <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-                                            <a href="{{ route('products.show', $product->id) }}" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="text text-center">
-                                    <span class="sale">Sale</span>
-                                    @if ( LaravelLocalization::getCurrentLocale() == 'en')
-                                        <span class="category">{{ $product->category->name_en }}</span>
-                                    @else
-                                        <span class="category">{{ $product->category->name_ar }}</span>
-                                    @endif
-                                    <h2>{{ $product->name }}</h2>
-                                    @if ( LaravelLocalization::getCurrentLocale() == 'en')
-                                    <p class="mb-0"><span class="price">LE {{ $product->price }}</span></p>
-                                    @else
-                                    <p class="mb-0"><span class="price"> {{ $product->price }} جنيه</span></p>
-                                    @endif
-
+            <div class="row">
+                @foreach ($products as $product)
+                    <div class="col-md-3 d-flex">
+                        <div class="product ftco-animate">
+                            <div class="img d-flex align-items-center justify-content-center"
+                                style="background-image: url({{ asset('storage/products/'.$product->image) }});">
+                                <div class="desc">
+                                    <p class="meta-prod d-flex">
+                                        <input type="text" id="quantity" name="quantity" class="quantity form-control input-number" value="1" hidden>
+                                        <a href="" productID="{{ $product->id }}" class="submitToCart d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
+                                        <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+                                        <a href="{{ route('products.show', $product->id) }}" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+                                    </p>
                                 </div>
                             </div>
+                            <div class="text text-center">
+                                <span class="sale">Sale</span>
+                                @if ( LaravelLocalization::getCurrentLocale() == 'en')
+                                    <span class="category">{{ $product->category->name_en }}</span>
+                                @else
+                                    <span class="category">{{ $product->category->name_ar }}</span>
+                                @endif
+                                <h2>{{ $product->name }}</h2>
+                                @if ( LaravelLocalization::getCurrentLocale() == 'en')
+                                <p class="mb-0"><span class="price">LE {{ $product->price }}</span></p>
+                                @else
+                                <p class="mb-0"><span class="price"> {{ $product->price }} جنيه</span></p>
+                                @endif
+
+                            </div>
                         </div>
-                    @endforeach
-              </div>
-              <div class="row justify-content-center">
-                  <div class="col-md-4">
-                      <a href="{{ route('products.index') }}" class="btn btn-primary d-block">{{ __('index.View All Products')  }}<span class="fa fa-long-arrow-right"></span></a>
-                  </div>
-              </div>
-          </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <a href="{{ route('products.index') }}" class="btn btn-primary d-block">{{ __('index.View All Products')  }}<span class="fa fa-long-arrow-right"></span></a>
+                </div>
+            </div>
+        </div>
       </section>
 
   <section class="ftco-section testimony-section img" style="background-image: url({{ asset('front/images/bg_4.jpg') }});">

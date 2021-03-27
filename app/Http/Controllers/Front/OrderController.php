@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Admin;
 use App\Aria;
+use App\Info;
 use App\User;
+use App\Admin;
 use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Notifications\NewOrder;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Notification;
 
 class OrderController extends Controller
 {
@@ -50,5 +51,23 @@ class OrderController extends Controller
         return redirect()->route('home');
 
 
+    }
+
+    public function order_list()
+    {
+        $info = Info::find(1);
+        $orders = Order::where('user_id', Auth::id())->get();
+        return view('front.order_list', compact('info', 'orders'));
+    }
+
+    public function cancel_order($order_id)
+    {
+        $order = Order::find($order_id);
+        $order->status = 4;
+        $order->save();
+
+
+        toastr()->success('order canceld successfully');
+        return redirect()->back();
     }
 }

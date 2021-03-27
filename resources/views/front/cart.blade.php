@@ -37,14 +37,14 @@
                                 </td>
                                 <td>${{ $product->price }}</td>
                                 <td class="quantity " >
-                                    <div class="input-group ">
-                                        <span class="input-group-btn mr-2">
+                                    <div style="display: flex;">
+                                        <span class="input-group-btn mt-2">
                                             <button type="button" class="quantity-left-minus btn" product_id="{{ $product->id }}"  data-type="minus" data-field="">
                                                 <i class="fa fa-minus"></i>
                                             </button>
                                         </span>
-                                        <input type="text" id="quantity{{ $product->id }}" name="quantity" class="quantity form-control input-number" value="{{ $product->quantity }}" min="1" max="100">
-                                        <span class="input-group-btn ml-2">
+                                        <input style="width: 60px;" type="text" id="quantity{{ $product->id }}" name="quantity" class="quantity form-control input-number " value="{{ $product->quantity }}" min="1" max="100" >
+                                        <span class="input-group-btn mt-2">
                                             <button type="button" class="quantity-right-plus btn" product_id="{{ $product->id }}" data-type="plus" data-field="">
                                                 <i class="fa fa-plus"></i>
                                             </button>
