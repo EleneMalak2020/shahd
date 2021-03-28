@@ -214,6 +214,29 @@
         })
     </script>
 
+    <script>
+        $('.submitToFav').click(function (e) {
+            e.preventDefault();
+            var productID = $(this).attr('productID');
+
+            $.ajax({
+                type: "post",
+                url: "{{ route('addToFav') }}",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    'id': productID
+                },
+
+                success: function (response) {
+                    toastr.success(response.msg);
+                },
+                error : function (jqXHR, textStatus, errorThrown) {
+                    window.location.href = '/login';
+                }
+            });
+        });
+
+    </script>
 
     <!--toaster js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

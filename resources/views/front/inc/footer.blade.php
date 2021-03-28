@@ -19,7 +19,11 @@
               <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>My Account</a></li>
               <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Register</a></li>
               <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Log In</a></li>
+              @auth
               <li><a href="{{ route('order_list', Auth::id()) }}"><span class="fa fa-chevron-right mr-2"></span>My Order</a></li>
+              <li><a href="{{ route('fav.index', Auth::id()) }}"><span class="fa fa-chevron-right mr-2"></span>My Fav</a></li>
+              @endauth
+
             </ul>
           </div>
         </div>

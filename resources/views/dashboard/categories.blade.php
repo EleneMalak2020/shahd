@@ -62,8 +62,15 @@
                                     category_name_en="{{ $category->name_en }}"
                                     category_name_ar="{{ $category->name_ar }}"
                                     category_id="{{ $category->id }}"
-                                    style='width:5em;height:35px' class="editBtn btn btn-sm btn-primary mr-1 edit-category" data-toggle="modal" data-target="#editCategoryModal">تعديل</button>
-                                <button style='width:4.25em;height:35px' type="submit" category_id="{{ $category->id }}" class="delete_btn btn btn-sm ml-1 btn-danger">مسح</button>
+                                    style='width:5em;height:35px' class="editBtn btn btn-sm btn-primary mr-1 edit-category" data-toggle="modal" data-target="#editCategoryModal">
+                                    تعديل
+                                </button>
+                                @if ($category->id == 1)
+                                @else
+                                <button style='width:4.25em;height:35px' type="submit" category_id="{{ $category->id }}" class="delete_btn btn btn-sm ml-1 btn-danger">
+                                    مسح
+                                </button>
+                                @endif
                             </div>
                         </form>
                     </div>
@@ -207,7 +214,6 @@
                 }
 
             });
-
     </script>
     @endsection
 

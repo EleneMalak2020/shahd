@@ -112,6 +112,8 @@ Route::group(
                 Route::get('/order_list/{user_id}', 'OrderController@order_list')->name('order_list');
                 Route::post('/order_list/{order_id}/cancel', 'OrderController@cancel_order')->name('cancel_order');
 
+                Route::post('/fav/store', 'FavController@add')->name('addToFav');
+                Route::get('/fav/{user_id}', 'FavController@index')->name('fav.index');
             });
 
 

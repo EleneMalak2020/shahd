@@ -19,14 +19,13 @@
             @guest
             <p class="mb-0"><a href="{{ route('register') }}" class="mr-2">Sign Up</a> <a href="{{ route('login') }}">Log In</a></p>
             @else
-            <a class="dropdown-item text-light mb-0" href="{{ route('logout') }}"
-                onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
+            <p class="mb-0"><a href="{{ route('order_list', Auth::id()) }}" class="mr-2">My Order</a>
+            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 {{ __('Logout') }}
-            </a>
+            </a></p>
 
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
+            @csrf
             </form>
             @endguest
         </div>

@@ -13,9 +13,25 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+    Route::get('categories', 'MobileController@get_categories');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+    Route::get('products', 'MobileController@get_products');
 
-Route::get('categories', 'MobileController@get_category');
+    Route::get('category_products/{category_id}', 'MobileController@get_category_products');
+
+    Route::get('products/{product_id}', 'MobileController@get_product');
+
+    Route::middleware('auth:api')->group(function(){
+
+
+        Route::get('arias', 'MobileController@get_areas');
+
+        Route::post('/order/store', 'MobileController@store_order');
+
+        Route::get('order_list/{user_id}', 'MobileController@get_order_list');
+
+    });
+
+
+
+

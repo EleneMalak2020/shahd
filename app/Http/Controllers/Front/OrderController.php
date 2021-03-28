@@ -49,8 +49,6 @@ class OrderController extends Controller
 
         toastr()->success('order sent successfully');
         return redirect()->route('home');
-
-
     }
 
     public function order_list()

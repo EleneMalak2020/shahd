@@ -115,7 +115,7 @@
                                     <p class="meta-prod d-flex">
                                         <input type="text" id="quantity" name="quantity" class="quantity form-control input-number" value="1" hidden>
                                         <a href="" productID="{{ $product->id }}" class="submitToCart d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-                                        <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+                                        <a href="" productID="{{ $product->id }}" class="submitToFav d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
                                         <a href="{{ route('products.show', $product->id) }}" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
                                     </p>
                                 </div>
